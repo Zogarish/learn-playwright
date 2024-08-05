@@ -3,12 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "type": "module",
+  "scripts": {
+    "test": "node tests/run_test.js",
+    "watch": "npx chokidar \"tests/**/*.js\" -c \"node tests/watch.js\" --verbose"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.45.3",
     "@types/node": "^22.1.0"
+  },
+  "dependencies": {
+    "chokidar": "^3.6.0"
   }
 }
