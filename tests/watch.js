@@ -1,4 +1,4 @@
-import { exec } from "child_process";
+import { spawn } from "child_process";
 // This import allows us to execute shell commands from our Node.js script.
 // We use it to run our test script as a separate process.
 
@@ -22,24 +22,25 @@ function runScript() {
   // This constructs the full path to run_test.js
   // join() is used to create a path that works on any operating system.
 
-  exec(`node ${scriptPath}`, (error, stdout, stderr) => {
-    // This executes run_test.js as a separate process.
-    // exec() runs a command in a shell and buffers the output.
+  console.log("Attempting to run script:", scriptPath);
 
-    console.log("Script execution completed");
+  const child = spawn("node", [scriptPath], { stdio: "inherit" });
+  // This line creates a new Node.js process to run run_test.js
+  // 'node' is the command to run
+  // [scriptPath] is an array of arguments (in this case, just the path to run_test.js)
+  // { stdio: 'inherit' } means the child process will use the same standard IO as the parent process
 
-    if (error) {
-      // If there's an error running the script, log it.
-      console.error(`Error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      // If there's any output to stderr, log it.
-      console.error(`Stderr: ${stderr}`);
-    }
-    // Log the standard output of the script.
-    console.log(`Stdout: ${stdout}`);
+  child.on("close", (code) => {
+    console.log(`Script execution completed with code ${code}`);
   });
+  // This sets up an event listener for when the child process closes
+  // It logs the exit code, which can be useful for debugging
+
+  child.on("error", (error) => {
+    console.error(`Error during script execution: ${error.message}`);
+  });
+  // This sets up an event listener for any errors that occur while spawning the process
+  // It logs any error messages
 }
 
 console.log("watch.js is running");
