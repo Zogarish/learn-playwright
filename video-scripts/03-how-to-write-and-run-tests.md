@@ -1,14 +1,40 @@
-# How To Write and Run Tests:
+# How To Write and Run Test
 
-## How To Setup Test File
-- Create a Test File In Test Folder
-- Import Playwright with Test and Expect
-  import { test, expect } from "@playwright/test";
+## Setting Up Your Test File
 
-## How to Write Test
-- Normal test layout:
-  test("Name of test", async ({ page }) => {})
-  Explain:
-  - You write the name of what you want to call your test.
-  - Have the async in the function because this make it as an asynchronous operations. You can use the word await to have the function. Which cause the code to pause here until that operation completes before moving to the next line.
-  - By having "page", you are telling Playwright, you want to work with the page object in this test to interact with it.
+1. Create a new test file in your designated test folder.
+2. Import the essential Playwright tools:
+
+```
+import { test, expect } from "@playwright/test";
+```
+
+## Writing Your Test
+
+The basic structure of a Playwright test is:
+
+```javascript
+test("Your descriptive test name", async ({ page }) => {
+  // Your test code goes here
+});
+```
+
+Key points:
+
+- Choose a clear, descriptive name for your test.
+- The `async` keyword is crucial - it allows you to use `await` for asynchronous operations.
+- The `{ page }` parameter gives you access to Playwright's powerful page object.
+
+## Executing Your Tests
+
+Playwright offers flexible test execution options:
+
+- `npx playwright test`: Run all tests in headless mode across all browsers.
+- `npx playwright test "filename"`: Run a specific test file.
+- `npx playwright test "filename" --project=chromium`: Target a specific browser.
+- `npx playwright test "filename" --project=chromium --headed`: Run in headed mode.
+- `npx playwright test "filename" --project=chromium --headed --debug`: Run with debugger.
+
+## Key Terminology
+
+- Project: Refers to browser types (chromium, webkit, firefox)
