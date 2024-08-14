@@ -98,17 +98,24 @@ test("Handling Multiple Elements", async ({ page }) => {
   // Checks Login URL
   await expect(page).toHaveURL("https://www.saucedemo.com/inventory.html");
 
+  // Checks Multiple Elements
   const itemsInfo = await page.evaluate(() => {
     const items = Array.from(document.querySelectorAll(".inventory_item"));
+
     return items.map((item) => ({
       name: item.querySelector(".inventory_item_name").textContent,
       price: item.querySelector(".inventory_item_price").textContent,
+      description: item.querySelector(".inventory_item_desc").textContent,
     }));
   });
 
   console.log(itemsInfo);
 
-  expect(itemsInfo.length).toBeGreaterThan(0);
-  expect(itemsInfo[0]).toHaveProperty("name");
-  expect(itemsInfo[0]).toHaveProperty("price");
+  // Checks the Array if it's has data
+  await expect(itemsInfo.length).toBeGreaterThan(0);
+
+  // Checks If Array has Name, Price and Description
+  await expect(itemsInfo[0]).toHaveProperty("name");
+  await expect(itemsInfo[0]).toHaveProperty("price");
+  await expect(itemsInfo[0]).toHaveProperty("description");
 });
