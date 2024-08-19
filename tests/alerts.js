@@ -63,8 +63,43 @@ async function runAlertsPrompt() {
   await browser.close();
 }
 
+async function runAllDialogTests() {
+  const browser = await chromium.launch({ headless: false });
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  await page.goto("https://the-internet.herokuapp.com/javascript_alerts");
+
+  page.on("dialog", async (dialog) => {
+    console.log(`Dialog type: ${dialog.type()}`);
+    console.log(`Dialog message: ${dialog.message()}`);
+
+    switch (dialog.type()) {
+      case "alert":
+        await dialog.accept();
+        break;
+      case "confirm":
+        await dialog.accept(); // or dialog.dismiss() to cancel
+        break;
+      case "prompt":
+        await dialog.accept("Playwright is awesome!");
+        break;
+      case "beforeunload":
+        await dialog.accept();
+        break;
+    }
+  });
+
+  await page.getByText("Click For JS Prompt").click();
+
+  await page.waitForTimeout(5000);
+
+  await browser.close();
+}
+
 (async () => {
   await runAlertsOk();
   await runAlertsConfirmation();
   await runAlertsPrompt();
+  await runAllDialogTests();
 })();

@@ -1,6 +1,6 @@
 import { chromium, expect } from "@playwright/test";
 
-async function hideenDropdown() {
+async function hiddenDropdown() {
   const browser = await chromium.launch({ headless: false });
   const context = await browser.newContext();
   const page = await context.newPage();
@@ -11,5 +11,5 @@ async function hideenDropdown() {
 }
 
 (async () => {
-  await hideenDropdown();
+  await hiddenDropdown();
 })();
