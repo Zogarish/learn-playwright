@@ -1,8 +1,8 @@
 import { chromium, expect } from "@playwright/test";
-import dotenv from "dotenv";
+import dotenv, { config } from "dotenv";
 
 // Loading ENV File To Use
-dotenv.config();
+config
 
 async function runGoogleDrive() {
   // Setting Up Browser and Page
@@ -11,8 +11,8 @@ async function runGoogleDrive() {
   const page = await context.newPage();
 
   // Username and Password from env
-  const username = process.env.USERNAME;
-  const password = process.env.PASSWORD;
+  const username = process.env.username;
+  const password = process.env.password;
 
   page.on("popup", async (popup) => {
     console.log("New Page Has been Opened");
@@ -24,7 +24,7 @@ async function runGoogleDrive() {
     console.log(`The page url is: ${pageURL}`);
     console.log(`The Title of the Page is: ${pageTitle}`);
 
-    await popup.locator('[id="identifierId"]').fill(username);
+    await popup.locator('[id="identifierId"]').fill("nguyengx364@gmail.com");
   });
 
   // Going To Google Drive

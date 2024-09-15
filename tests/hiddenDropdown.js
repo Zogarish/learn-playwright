@@ -5,7 +5,7 @@ async function hiddenDropdown() {
   const context = await browser.newContext();
   const page = await context.newPage();
 
-  await page.goto();
+  await page.goto("https://testautomationpractice.blogspot.com/");
 
   await browser.close();
 }
@@ -13,3 +13,6 @@ async function hiddenDropdown() {
 (async () => {
   await hiddenDropdown();
 })();
+
+// https://demoqa.com/date-picker
+// https://the-internet.herokuapp.com/
