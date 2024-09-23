@@ -16,7 +16,7 @@
     "@types/node": "^22.1.0"
   },
   "dependencies": {
-    "chokidar": "^3.6.0",
+    "chokidar": "^4.0.1",
     "dotenv": "^16.4.5"
   }
 }
